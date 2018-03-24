@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+
+<div id="s">
+    <input type="text" id="search" name="search" placeholder="movie title" />
+    <input type="button" id="bSearch" value="Search"  onClick="searchMovie()"/>
+</div>
+
+<div id ="result">
+
+    <!--<a href="details.jsp?id=1">-->
+        <!--<img src="posters/brave.jpeg" alt="brave">-->
+    <!--</a>-->
+    <!--<a href="details.jsp?id=2">-->
+        <!--<img src="posters/martian.jpeg" alt="matian">-->
+    <!--</a>-->
+    <!--<a href="details.jsp?id=3">-->
+        <!--<img src="posters/titanic.jpeg" alt="titanic">-->
+    <!--</a>-->
+
+</div>
+
+<script>
+
+    function listMovies() {
+        $.ajax({
+            url: 'tl?action=read'
+        }).done(function (response) {
+            putToDoInHTML(response.movies);
+        });
+    }
+    function putToDoInHTML(todo) {
+
+        var list = document.getElementById('result');
+        var listHtml = '';
+
+        for (var i = 0; i < todo.length; i++) {
+            var task = todo[i];
+            //var checked = task.done ? ' checked=""' : '';
+            var taskHtml =
+                '<a href="details.jsp?urly=' + task.urlyoutube + '&urlp='+ task.poster +'"> <img src="posters/'+ task.poster+'"></a>'
+            listHtml += taskHtml;
+        }
+        list.innerHTML = listHtml;
+
+    }
+
+    listMovies();
+
+</script>
+</body>
+</html>
